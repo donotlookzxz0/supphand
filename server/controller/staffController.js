@@ -28,29 +28,29 @@ const getUserTicketById = async (req, res) => {
     res.json({viewTicket: viewUserTicket.rows[0]});
 }
 
+const status = {PENDING:'PENDING', RESOLVED:'RESOLVED'};
 
 const acceptTicket = async (req, res) => {
 
     const userTicketId = Number(req.params.id);
-    const status = req.body.status;
+    
 
-    const acceptedTicket = await pool.query("UPDATE tickets SET status = $1 WHERE id = $2 RETURNING *",[status=['PENDING'], userTicketId])
+    const acceptedTicket = await pool.query("UPDATE tickets SET status = $1 WHERE id = $2 RETURNING *",[status.PENDING, userTicketId])
 
     return res.status(201).json(acceptedTicket.rows[0]);
 }
 
-const closeTicket = async (req, res) => {
+const resolveTicket = async (req, res) => {
 
-    const userTicketId = Number(req.params.id);
-    const status = req.body.status;
+    const userTicketId = Number(req.params.id);;
 
-    const closedTicket = await pool.query("UPDATE tickets SET status = $1 WHERE id = $2 RETURNING *",[status=['CLOSED'], userTicketId])
+    const resolvedTicket = await pool.query("UPDATE tickets SET status = $1 WHERE id = $2 RETURNING *",[status.RESOLVED, userTicketId])
 
-    if (closedTicket.rows.length === 0) {
+    if (resolvedTicket.rows.length === 0) {
         return res.status(400).json({message: "Ticket not found"});
     }
 
-    return res.status(201).json(closedTicket.rows[0]);
+    return res.status(201).json(resolvedTicket.rows[0]);
 }
 
-export {getAllUserTickets, getUserTicketById, acceptTicket, closeTicket};
+export {getAllUserTickets, getUserTicketById, acceptTicket, resolveTicket};
