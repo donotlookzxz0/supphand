@@ -7,7 +7,7 @@ const router = express.Router();
 router.use(authMiddleware, verifyRole(['user']));
 
 router.get('/', getAllTickets);
-router.get('/:id', getTicketById);
+router.get('/:ticketId', getTicketById);
 router.post('/', createTicket);
 
 export default router;
