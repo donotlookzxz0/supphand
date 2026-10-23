@@ -8,6 +8,7 @@ import limiter from './middleware/rateLimiter.js'
 import authRoutes from './routes/authRoutes.js'
 import ticketRoutes from './routes/ticketRoutes.js'
 import staffRoutes from './routes/staffRoutes.js'
+import commentRoutes from './routes/commentRoutes.js'
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(cookieParser());
 app.use('/auth', authRoutes)
 app.use('/tickets', ticketRoutes)
 app.use('/staff', staffRoutes)
+app.use('/comments', commentRoutes)
 
 app.get('/', async(req, res) => {
     const result = await pool.query("SELECT current_database()");

@@ -9,12 +9,12 @@ const getAllTickets = async (req, res) => {
         return res.status(400).json({message:'No tickets found'});
     }   
 
-    res.status(200).json(listTicket.rows);
+    return res.status(200).json(listTicket.rows);
 };
 
 const getTicketById = async (req, res) => {
     const userId = req.user.id;
-    const ticketId = Number(req.params.id);
+    const ticketId = Number(req.params.ticketId);
 
     if (!Number.isInteger(ticketId)) {
         return res.status(400).json({ message: "Ticket ID must be a positive integer" });
@@ -26,7 +26,7 @@ const getTicketById = async (req, res) => {
         return res.status(400).json({message: "Ticket does not exist"});
     }
 
-    res.json({viewTicket: singleTicket.rows[0]});
+    return res.json({viewTicket: singleTicket.rows[0]});
 };
 
 const createTicket = async (req, res) => {
