@@ -21,14 +21,14 @@ function Login() {
   return (
     <div className="flex min-h-screen justify-center items-center">
       <form
-        className="bg-white min-h-100 min-w-100 rounded-lg"
+        className="bg-white min-h-100 min-w-100 rounded-lg p-11"
         onSubmit={handleSubmit}
       >
-        <h1 className="text-xl text-center font-bold leading-tight">Log In</h1>
+        <h1 className="text-xl text-center font-bold">Login your account</h1>
         <input
           type="text"
           placeholder="Username"
-          className="border p-2 rounded-md w-full mt-10 mb-5"
+          className="block border p-2 rounded-md w-full mt-10 mb-5"
           required
           onChange={(e) => setUsername(e.target.value)}
         />
@@ -36,12 +36,12 @@ function Login() {
         <input
           type="password"
           placeholder="Password"
-          className="border p-2 rounded-md w-full mb-5"
+          className="block border p-2 rounded-md w-full mb-5"
           required
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button className="w-full px-10 py-2 rounded-md bg-black text-white cursor-pointer hover:bg-sky-500">
+        <button className="w-full px-10 my-10 py-2 rounded-md bg-black text-white cursor-pointer hover:bg-gray-900">
           Log In
         </button>
       </form>
