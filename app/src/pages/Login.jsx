@@ -19,7 +19,7 @@ function Login() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen justify-center items-center">
+    <div className="flex min-h-screen justify-center items-center">
       <form
         className="bg-white min-h-100 min-w-100 rounded-lg"
         onSubmit={handleSubmit}
@@ -38,7 +38,7 @@ function Login() {
           placeholder="Password"
           className="border p-2 rounded-md w-full mb-5"
           required
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
 
         <button className="w-full px-10 py-2 rounded-md bg-black text-white cursor-pointer hover:bg-sky-500">
