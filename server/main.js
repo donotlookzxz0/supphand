@@ -12,7 +12,14 @@ import commentRoutes from './routes/commentRoutes.js'
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST'],
+    credentials: true,
+    optionsSuccessStatus: 200
+}
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(limiter);
 app.use(cookieParser());
@@ -23,8 +30,7 @@ app.use('/staff', staffRoutes)
 app.use('/comments', commentRoutes)
 
 app.get('/', async(req, res) => {
-    const result = await pool.query("SELECT current_database()");
-    res.send(`db name ${result.rows[0].current_database}`)
+    res.json({message: 'hi'})
 });
 
 const port = process.env.PORT || 2000
