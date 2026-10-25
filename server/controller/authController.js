@@ -16,10 +16,16 @@ const register = async (req, res) => {
         return res.status(400).json({message:'Fields are required'})
     }
 
-    const existingUser = await pool.query('SELECT * FROM users WHERE email = $1',[email]);
+    const existingUsername = await pool.query('SELECT * FROM users WHERE username = $1',[username]);
     
-    if (existingUser.rows.length > 0){
-        return res.status(400).json({message:'User already exists'});
+    if (existingUsername.rows.length > 0){
+        return res.status(400).json({message:'Username is already taken'});
+    }
+
+    const existingEmail = await pool.query('SELECT * FROM users WHERE email = $1',[email]);
+    
+    if (existingEmail.rows.length > 0){
+        return res.status(400).json({message:'User with that email already exists'});
     }
 
     if (password.length < 8) {
@@ -34,10 +40,16 @@ const register = async (req, res) => {
         [username, email, hashedPassword]
     );
 
+    const newUserData = newUser.rows[0];
+
     const token = generateToken(newUser.rows[0].id);
     res.cookie("token", token, cookieOptions);
 
-    return res.status(201).json({ user: newUser.rows[0] });
+    return res.status(201).json({ user: {
+        id: newUserData.id,
+        username: newUserData.username,
+        email: newUserData.email,
+    }});
 };
 
 const login = async (req, res) => {
@@ -67,7 +79,7 @@ const login = async (req, res) => {
     const token = generateToken(userData)
     res.cookie("token", token, cookieOptions);
 
-    res.json({
+    return res.status(200).json({
     user: {
       id: userData.id,
       username: userData.username,
