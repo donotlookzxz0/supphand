@@ -6,6 +6,7 @@ function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -15,6 +16,7 @@ function Register() {
       await register(username, email, password);
       navigate("/auth/login");
     } catch (err) {
+      setError(err.response.data.message)
       throw err;
     }
   };
@@ -22,7 +24,7 @@ function Register() {
   return (
     <div className="flex min-h-screen justify-center items-center">
       <form
-        className="bg-white min-h-100 min-w-100 rounded-lg p-11"
+        className="bg-white min-w-100 rounded-lg p-11"
         onSubmit={handleSubmit}
       >
         <h1 className="text-xl text-center font-bold">Register new account</h1>
@@ -49,7 +51,8 @@ function Register() {
           required
           onChange={(e) => setPassword(e.target.value)}
         />
-
+        
+        {error && <p className="text-center text-red-500 font-semibold">{error}</p>} 
         <button className="w-full px-10 my-5 py-2 rounded-md bg-black text-white cursor-pointer hover:bg-gray-900">
           Create Account
         </button>
