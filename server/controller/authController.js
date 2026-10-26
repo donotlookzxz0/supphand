@@ -88,6 +88,10 @@ const login = async (req, res) => {
 
 };
 
+const me = async (req, res) => {
+    return res.json(req.user);
+}
+
 const logout = async (req, res) => {
     // res.cookie("jwt", "", {
     //     httpOnly: true,
@@ -105,4 +109,4 @@ const logout = async (req, res) => {
     });
 };
 
-export {register, login, logout};
+export {register, login, me, logout};
