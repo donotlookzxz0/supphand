@@ -27,4 +27,18 @@ const login = async (username, password) => {
     }
 }
 
-export {register, login};
+const fetchUser = async () => {
+    try {
+        const response = await api.post('/auth/me');
+        return response.data;
+    } catch (err) {
+        console.error(err);
+        throw(err);
+    }
+}
+
+const logout = async () => {
+    await api.post('/auth/logout/');
+}
+
+export {register, login, fetchUser, logout};
