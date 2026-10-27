@@ -29,7 +29,7 @@ const login = async (username, password) => {
 
 const fetchUser = async () => {
     try {
-        const response = await api.post('/auth/me');
+        const response = await api.get('/auth/me');
         return response.data;
     } catch (err) {
         console.error(err);
