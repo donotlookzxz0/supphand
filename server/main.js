@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
 import cookieParser from 'cookie-parser';
-import limiter from './middleware/rateLimiter.js'
+// import limiter from './middleware/rateLimiter.js'
 
 import authRoutes from './routes/authRoutes.js'
 import ticketRoutes from './routes/ticketRoutes.js'
@@ -20,7 +20,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(express.json());
-app.use(limiter);
+// app.use(limiter);
 app.use(cookieParser());
 
 app.use('/auth', authRoutes)
