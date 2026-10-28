@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
 import cookieParser from 'cookie-parser';
-import pool from './config/db.js';
 import limiter from './middleware/rateLimiter.js'
 
 import authRoutes from './routes/authRoutes.js'
