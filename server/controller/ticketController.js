@@ -6,7 +6,7 @@ const getAllTickets = async (req, res) => {
     const listTicket = await pool.query("SELECT * FROM tickets WHERE user_id = $1",[userId]);
     
     if (listTicket.rows.length === 0) {
-        return res.status(400).json({message:'No tickets found'});
+        return res.status(200).json([]);
     }   
 
     return res.status(200).json(listTicket.rows);
@@ -26,7 +26,7 @@ const getTicketById = async (req, res) => {
         return res.status(400).json({message: "Ticket does not exist"});
     }
 
-    return res.json({viewTicket: singleTicket.rows[0]});
+    return res.status(200).json(singleTicket.rows[0]);
 };
 
 const createTicket = async (req, res) => {
