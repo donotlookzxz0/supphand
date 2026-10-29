@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router'
 import ProtectedRoute from './utils/ProtectedRoute'
 import Register from "./pages/Register"
 import Login from "./pages/Login"
