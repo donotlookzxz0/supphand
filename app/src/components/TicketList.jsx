@@ -15,11 +15,11 @@ function TicketList() {
     <div>
       <ul>
         {ticket.map((ticket) => (
-          <Link to={`/tickets/${ticket.id}`}>
-            <li key={ticket.id} className="text-white">
+          <li key={ticket.id} className="text-white">
+            <Link to={`/tickets/${ticket.id}`}>
               title: {ticket.title} | status: {ticket.status}
-            </li>
-          </Link>
+            </Link>
+          </li>
         ))}
       </ul>
     </div>
