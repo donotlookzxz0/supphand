@@ -11,6 +11,7 @@ const getAllTickets = async (title, description, status) => {
         return res.data
     } catch (error) {
         console.error(error)
+        throw(error)
     }
 }
 
@@ -26,6 +27,7 @@ const getTicketById = async (id, title, description, status) => {
         return res.data
     } catch (error) {
         console.error(error)
+        throw(error)
     }
 }
 
@@ -39,6 +41,7 @@ const createTicket = async (title, description) => {
         return res.data
     } catch (error) {
         console.error(error)
+        throw(error)
     }
 }
 
