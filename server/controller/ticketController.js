@@ -3,7 +3,7 @@ import pool from '../config/db.js';
 const getAllTickets = async (req, res) => {
     const userId = req.user.id;
 
-    const listTicket = await pool.query("SELECT * FROM tickets WHERE user_id = $1",[userId]);
+    const listTicket = await pool.query("SELECT * FROM tickets WHERE user_id = $1 ORDER BY created_at DESC",[userId]);
     
     if (listTicket.rows.length === 0) {
         return res.status(200).json([]);
