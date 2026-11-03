@@ -1,27 +1,43 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
 import { getAllTickets } from "../services/ticket";
 
 function TicketList() {
-  const [ticket, setTicket] = useState([]);
+  const [tickets, setTickets] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getAllTickets()
-      .then((ticketData) => setTicket(ticketData))
+      .then((ticketData) => setTickets(ticketData))
       .catch((err) => console.error(err));
   }, []);
 
   return (
     <div>
-      <ul>
-        {ticket.map((ticket) => (
-          <li key={ticket.id} className="text-white">
-            <Link to={`/tickets/${ticket.id}`}>
-              title: {ticket.title} | status: {ticket.status}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tickets.map((ticket) => (
+            <tr
+              className="cursor-pointer"
+              key={ticket.id}
+              onClick={() => navigate(`tickets/${ticket.id}`)}
+            >
+              <td>{ticket.id}</td>
+              <td>{ticket.title}</td>
+              <td>{ticket.description}</td>
+              <td>{ticket.status}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
