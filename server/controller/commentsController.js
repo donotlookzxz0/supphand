@@ -4,7 +4,7 @@ const getComments = async (req,res) => {
     const ticketId = Number(req.params.ticketId);
     
     if (!Number.isInteger(ticketId)) {
-        return res.status(400).json({message: "Ticket ID associated with the commentaa must be a positive integer"});
+        return res.status(400).json({message: "Ticket ID associated with the comment must be a positive integer"});
     }
 
     const listComments = await pool.query("SELECT * FROM comments WHERE ticket_id = $1", [ticketId]);
