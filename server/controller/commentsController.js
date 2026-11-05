@@ -10,7 +10,7 @@ const getComments = async (req,res) => {
     const listComments = await pool.query("SELECT * FROM comments WHERE ticket_id = $1", [ticketId]);
 
     if (listComments.rows.length === 0) {
-        return res.status(400).json({message:'No comments found'});
+        return res.status(200).json([]);
     }
 
     return res.status(200).json(listComments.rows);
