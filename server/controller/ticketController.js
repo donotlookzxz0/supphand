@@ -13,17 +13,20 @@ const getAllTickets = async (req, res) => {
 };
 
 const getTicketById = async (req, res) => {
-    const userId = req.user.id;
+    const {role, id: userId} = req.user;
     const ticketId = Number(req.params.ticketId);
 
     if (!Number.isInteger(ticketId)) {
         return res.status(400).json({ message: "Ticket ID must be a positive integer" });
     }
+    const isStaff = role === "staff" || role === "admin"
 
-    const singleTicket = await pool.query("SELECT * FROM tickets WHERE id = $1 AND user_id = $2", [ticketId, userId]);
+    const singleTicket = isStaff 
+    ? await pool.query("SELECT * FROM tickets WHERE id = $1", [ticketId])
+    : await pool.query("SELECT * FROM tickets WHERE id = $1 AND user_id = $2", [ticketId, userId]);
 
     if (singleTicket.rows.length === 0) {
-        return res.status(400).json({message: "Ticket does not exist"});
+        return res.status(404).json({message: "Ticket does not exist"});
     }
 
     return res.status(200).json(singleTicket.rows[0]);

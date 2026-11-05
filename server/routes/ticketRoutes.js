@@ -6,11 +6,11 @@ import commentRoutes from '../routes/commentRoutes.js'
 
 const router = express.Router();
 
-router.use(authMiddleware, verifyRole(['user']));
-router.use('/:ticketId/comments', commentRoutes);
+router.use(authMiddleware, verifyRole(['user', 'staff', 'admin']));
+router.use('/:ticketId/comments', verifyRole(['user', 'staff', 'admin']), commentRoutes);
 
-router.get('/', getAllTickets);
-router.get('/:ticketId', getTicketById);
-router.post('/', createTicket);
+router.get('/', verifyRole(['user']), getAllTickets);
+router.get('/:ticketId', verifyRole(['user', 'staff', 'admin']), getTicketById);
+router.post('/', verifyRole(['user']), createTicket);
 
 export default router;
