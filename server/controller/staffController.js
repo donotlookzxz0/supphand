@@ -2,13 +2,13 @@ import pool from '../config/db.js';
 
 const getAllUserTickets = async (req, res) => {
 
-    const listAllTickets = await pool.query("SELECT * FROM tickets");
+    const listAllTickets = await pool.query("SELECT * FROM tickets ORDER by id desc");
 
     if (listAllTickets.rows.length === 0) {
         return res.status(400).json({message:'No ticket/s found'});
     }
 
-    return res.status(200).json({messge: listAllTickets.rows[0]});
+    return res.status(200).json(listAllTickets.rows);
 }
 
 const getUserTicketById = async (req, res) => {
