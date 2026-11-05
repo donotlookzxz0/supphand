@@ -22,7 +22,7 @@ const getUserTicketById = async(id) => {
 
 const acceptTicket = async(id) => {
     try {
-        const res = await api.put(`/staff/${id}/accept`)
+        const res = await api.patch(`/staff/${id}/accept`)
         return res.data
     } catch(err) {
         console.error(err)
@@ -32,7 +32,7 @@ const acceptTicket = async(id) => {
 
 const resolveTicket = async(id) => {
     try {
-        const res = await api.put(`/staff/${id}/resolve`)
+        const res = await api.patch(`/staff/${id}/resolve`)
         return res.data
     } catch(err) {
         console.error(err)
