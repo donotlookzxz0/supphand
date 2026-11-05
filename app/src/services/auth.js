@@ -27,7 +27,7 @@ const login = async (username, password) => {
     }
 }
 
-const fetchUser = async (role) => {
+const fetchUser = async () => {
     try {
         const response = await api.get('/auth/me');
         return response.data;
