@@ -9,8 +9,8 @@ router.use(authMiddleware, verifyRole(['staff','admin']));
 
 router.get('/', getAllUserTickets);
 router.get('/:id', getUserTicketById);
-router.put('/:id', acceptTicket);
-router.put('/:id', resolveTicket);
+router.put('/:id/accept', acceptTicket);
+router.put('/:id/resolve', resolveTicket);
 
 
 export default router;
