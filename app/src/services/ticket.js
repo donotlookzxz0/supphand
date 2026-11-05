@@ -14,9 +14,7 @@ const getAllTickets = async () => {
 const getTicketById = async (id) => {
 
     try {
-        const res = await api.get(`/tickets/${id}`, {
-            ticketId: id,
-    })
+        const res = await api.get(`/tickets/${id}`)
         return res.data
     } catch (error) {
         console.error(error)
