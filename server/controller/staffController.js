@@ -34,10 +34,13 @@ const acceptTicket = async (req, res) => {
 
     const userTicketId = Number(req.params.id);
     
-
     const acceptedTicket = await pool.query("UPDATE tickets SET status = $1 WHERE id = $2 RETURNING *",[status.PENDING, userTicketId])
 
-    return res.status(201).json(acceptedTicket.rows[0]);
+    if (resolvedTicket.rows.length === 0) {
+        return res.status(400).json({message: "Ticket not found"});
+    }
+
+    return res.status(200).json(acceptedTicket.rows[0]);
 }
 
 const resolveTicket = async (req, res) => {
@@ -50,7 +53,7 @@ const resolveTicket = async (req, res) => {
         return res.status(400).json({message: "Ticket not found"});
     }
 
-    return res.status(201).json(resolvedTicket.rows[0]);
+    return res.status(200).json(resolvedTicket.rows[0]);
 }
 
 export {getAllUserTickets, getUserTicketById, acceptTicket, resolveTicket};
