@@ -6,7 +6,6 @@ import ResolveBtn from "./status/ResolveBtn";
 
 function TicketList() {
   const [tickets, setTickets] = useState([]);
-  const [active, setActive] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
