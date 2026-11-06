@@ -5,7 +5,7 @@ const getAllUserTickets = async (req, res) => {
     const listAllTickets = await pool.query("SELECT * FROM tickets ORDER by id desc");
 
     if (listAllTickets.rows.length === 0) {
-        return res.status(400).json({message:'No ticket/s found'});
+        return res.status(404).json({message:'Ticket list empty'});
     }
 
     return res.status(200).json(listAllTickets.rows);
@@ -22,7 +22,7 @@ const getUserTicketById = async (req, res) => {
     const viewUserTicket = await pool.query("SELECT * FROM tickets WHERE id = $1",[userTicketId]);
 
     if (viewUserTicket.rows.length === 0) {
-        return res.status(400).json({message: "Ticket does not exist"});
+        return res.status(404).json({message: "Ticket does not exist"});
     }
 
     res.json({viewTicket: viewUserTicket.rows[0]});
@@ -36,8 +36,8 @@ const acceptTicket = async (req, res) => {
     
     const acceptedTicket = await pool.query("UPDATE tickets SET status = $1 WHERE id = $2 RETURNING *",[status.PENDING, userTicketId])
 
-    if (resolvedTicket.rows.length === 0) {
-        return res.status(400).json({message: "Ticket not found"});
+    if (acceptedTicket.rows.length === 0) {
+        return res.status(404).json({message: "Ticket not found"});
     }
 
     return res.status(200).json(acceptedTicket.rows[0]);
@@ -50,7 +50,7 @@ const resolveTicket = async (req, res) => {
     const resolvedTicket = await pool.query("UPDATE tickets SET status = $1 WHERE id = $2 RETURNING *",[status.RESOLVED, userTicketId])
 
     if (resolvedTicket.rows.length === 0) {
-        return res.status(400).json({message: "Ticket not found"});
+        return res.status(404).json({message: "Ticket not found"});
     }
 
     return res.status(200).json(resolvedTicket.rows[0]);
