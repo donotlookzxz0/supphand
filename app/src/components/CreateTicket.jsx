@@ -27,7 +27,7 @@ function CreateTicket() {
         className="bg-red-300 text-white text-lg font-semibold cursor-pointer"
         onClick={toggleModal}
       >
-        Open
+        Create ticket
       </button>
       {modal && (
         <div
