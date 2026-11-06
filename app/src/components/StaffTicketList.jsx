@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { getAllUserTickets } from "../services/staff";
+import AcceptBtn from "./status/AcceptBtn";
+import ResolveBtn from "./status/ResolveBtn";
 
 function TicketList() {
   const [tickets, setTickets] = useState([]);
+  const [active, setActive] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -12,9 +15,20 @@ function TicketList() {
       .catch((err) => console.error(err));
   }, []);
 
+  const updateTicket = (updated) => {
+    setTickets((prev) => prev.map((t) => (t.id === updated.id ? updated : t)));
+  };
+
+  const statusColors = {
+    OPEN: "text-sky-500",
+    PENDING: "text-amber-700",
+    RESOLVED: "text-green-400",
+    CLOSED: "text-red-500",
+  };
+
   return (
     <div>
-      <table>
+      <table className="bg-white">
         <thead>
           <tr>
             <th>ID</th>
@@ -33,7 +47,9 @@ function TicketList() {
               <td>{ticket.id}</td>
               <td>{ticket.title}</td>
               <td>{ticket.description}</td>
-              <td>{ticket.status}</td>
+              <td className={statusColors[ticket.status]}>{ticket.status}</td>
+              <td><AcceptBtn ticketId={ticket.id} onUpdate={updateTicket} /></td>
+              <td><ResolveBtn ticketId={ticket.id} onUpdate={updateTicket} /></td>
             </tr>
           ))}
         </tbody>

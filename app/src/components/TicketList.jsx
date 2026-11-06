@@ -12,9 +12,16 @@ function TicketList() {
       .catch((err) => console.error(err));
   }, []);
 
+  const statusColors = {
+    OPEN: "text-sky-500",
+    PENDING: "text-amber-700",
+    RESOLVED: "text-green-400",
+    CLOSED: "text-red-500",
+  };
+
   return (
     <div>
-      <table>
+      <table className="bg-white">
         <thead>
           <tr>
             <th>ID</th>
@@ -33,7 +40,7 @@ function TicketList() {
               <td>{ticket.id}</td>
               <td>{ticket.title}</td>
               <td>{ticket.description}</td>
-              <td>{ticket.status}</td>
+              <td className={statusColors[ticket.status]}>{ticket.status}</td>
             </tr>
           ))}
         </tbody>
