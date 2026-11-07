@@ -1,19 +1,35 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { fetchUser, logout } from "../services/auth";
+import { getAllTickets } from "../services/ticket";
 import TicketList from "../components/TicketList";
 import StaffTicketList from "../components/StaffTicketList";
 import CreateTicket from "../components/CreateTicket";
 
 const Home = () => {
   const [role, setRole] = useState(null);
+  const [tickets, setTickets] = useState([]);
   const navigate = useNavigate();
+
+  const roleCheck = role === "staff" || role === "admin"
 
   useEffect (() => {
     fetchUser()
     .then((data) => setRole(data.role))
-    .catch(() => console.error(err))
+    .catch((err) => console.error(err))
   }, [])
+
+  useEffect(() => {
+     if (!role || roleCheck) return;
+
+    getAllTickets()
+      .then((ticketData) => setTickets(ticketData))
+      .catch((err) => console.error(err));
+  }, [role]);
+
+  const createTicket = (newTicket) => {
+    setTickets((prev) => [newTicket, ...prev])
+  }
 
   const handleLogout = async () => {
     await logout();
@@ -23,8 +39,6 @@ const Home = () => {
   if (!role) {
     return <p>...</p>
   }
-
-  const roleCheck = role === "staff" || role === "admin"
 
   return (
     <>
@@ -43,8 +57,8 @@ const Home = () => {
           <StaffTicketList />
         ) : (
           <>
-            <CreateTicket />
-            <TicketList />
+            <CreateTicket onCreateTicket={createTicket} />
+            <TicketList tickets={tickets} />
           </>
         )}
       </div>

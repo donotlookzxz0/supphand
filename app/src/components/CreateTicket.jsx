@@ -1,9 +1,8 @@
 import { createTicket } from "../services/ticket";
 import { useState } from "react";
 
-function CreateTicket() {
+function CreateTicket({ onCreateTicket }) {
   const [modal, setModal] = useState(false);
-
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -11,15 +10,18 @@ function CreateTicket() {
     setModal(!modal);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    createTicket(title, description, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const res = await createTicket(title, description)
+      onCreateTicket(res.ticket)
+      setTitle("")
+      setDescription("")
+      setModal(false)
+    } catch (err) { 
+      console.error(err)
+    }
+  }
 
   return (
     <div>
@@ -27,7 +29,7 @@ function CreateTicket() {
         className="bg-red-300 text-white text-lg font-semibold cursor-pointer"
         onClick={toggleModal}
       >
-        Open
+        Create ticket
       </button>
       {modal && (
         <div
@@ -49,6 +51,7 @@ function CreateTicket() {
               name="title"
               className="border rounded-md"
               required
+              value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
             <label>Add description</label>
@@ -58,6 +61,7 @@ function CreateTicket() {
               name="description"
               className="border rounded-md"
               required
+              value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
             <button 

@@ -1,16 +1,7 @@
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { getAllTickets } from "../services/ticket";
 
-function TicketList() {
-  const [tickets, setTickets] = useState([]);
+function TicketList({ tickets }) {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    getAllTickets()
-      .then((ticketData) => setTickets(ticketData))
-      .catch((err) => console.error(err));
-  }, []);
 
   const statusColors = {
     OPEN: "text-sky-500",

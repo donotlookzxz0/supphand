@@ -4,7 +4,7 @@ import { getAllUserTickets } from "../services/staff";
 import AcceptBtn from "./status/AcceptBtn";
 import ResolveBtn from "./status/ResolveBtn";
 
-function TicketList() {
+function StaffTicketList() {
   const [tickets, setTickets] = useState([]);
   const navigate = useNavigate();
 
@@ -57,4 +57,4 @@ function TicketList() {
   );
 }
 
-export default TicketList;
+export default StaffTicketList;
