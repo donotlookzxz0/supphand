@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { createComment } from "../services/comment";
 
-function CommentForm({ ticketId, closeCommentForm }) {
+function CommentForm({ ticketId, addComment, closeCommentForm }) {
   const [description, setDescription] = useState("");
 
   const handleCommentCreation = async (e) => {
     e.preventDefault();
     try {
       const res = await createComment(ticketId, description);
+      addComment(res)
       setDescription("");
       closeCommentForm();
       return res.data;
