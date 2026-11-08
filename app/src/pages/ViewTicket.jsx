@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useParams, Link } from "react-router"
+import { useParams, Link, Navigate } from "react-router"
 import { getTicketById } from "../services/ticket"
 import { getAllComments } from "../services/comment"
 import CommentForm from "../components/CommentForm"
@@ -8,13 +8,19 @@ import CommentList from "../components/CommentList"
 function ViewTicket() {
   const { ticketId } = useParams()
   const [singleTicket, setSingleTicket] = useState(null)
+  const [loading, setLoading] = useState(false)
   const [comments, setComments] = useState([]);
   const [commentForm, setCommentForm] = useState(false)
 
   useEffect (() => {
+    setLoading(false)
+    setSingleTicket(null)
     getTicketById(ticketId)
     .then((data) => setSingleTicket(data))
-    .catch((err) => console.error(err))
+    .catch((err) => {
+      console.error(err) 
+      setLoading(true)
+    })
 
     getAllComments(ticketId)
       .then((data) => setComments(data))
@@ -27,6 +33,10 @@ function ViewTicket() {
 
   const onAddComment = (newComment) => {
     setComments((prev) => [...prev, newComment])
+  }
+
+  if (loading) {
+    return <Navigate to='/' replace/>
   }
 
   if (!singleTicket) {
