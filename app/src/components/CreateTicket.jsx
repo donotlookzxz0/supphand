@@ -5,6 +5,7 @@ function CreateTicket({ onCreateTicket }) {
   const [modal, setModal] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const toggleModal = () => {
     setModal(!modal);
@@ -12,6 +13,7 @@ function CreateTicket({ onCreateTicket }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoading(true)
     try {
       const res = await createTicket(title, description)
       onCreateTicket(res.ticket)
@@ -20,6 +22,8 @@ function CreateTicket({ onCreateTicket }) {
       setModal(false)
     } catch (err) { 
       console.error(err)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -68,7 +72,7 @@ function CreateTicket({ onCreateTicket }) {
               type="submit" 
               className="bg-black text-white cursor-pointer"
             >
-              Create ticket
+             { loading ? "Creating..." : "Create ticket"}
             </button>
           </form>
         </div>
