@@ -70,7 +70,8 @@ function CreateTicket({ onCreateTicket }) {
             />
             <button 
               type="submit" 
-              className="bg-black text-white cursor-pointer"
+              className="bg-black text-white cursor-pointer disabled:bg-gray-300"
+              disabled={loading}
             >
              { loading ? "Creating..." : "Create ticket"}
             </button>
