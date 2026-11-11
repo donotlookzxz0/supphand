@@ -5,7 +5,7 @@ const getAllUserTickets = async (req, res) => {
     const listAllTickets = await pool.query("SELECT * FROM tickets ORDER by id desc");
 
     if (listAllTickets.rows.length === 0) {
-        return res.status(404).json({message:'Ticket list empty'});
+        return res.status(200).json([]);
     }
 
     return res.status(200).json(listAllTickets.rows);
