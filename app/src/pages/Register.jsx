@@ -57,10 +57,7 @@ function Register() {
           Create Account
         </button>
         <div className="text-center">
-          <p>Already have an account? 
-            <Link to="/login" className="active underline text-blue-500">
-              Sign in here
-            </Link>
+          <p>Already have an account? <Link to="/login" className="text-blue-500 font-semibold active underline">Sign in here</Link>
           </p>
         </div>
       </form>
