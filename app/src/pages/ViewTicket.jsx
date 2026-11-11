@@ -47,6 +47,7 @@ function ViewTicket() {
     <>
     <div>
       <Link to="/" className="text-green-500">Back</Link>
+      {singleTicket.username}
       {singleTicket.title}
       {singleTicket.description}
       {singleTicket.status}

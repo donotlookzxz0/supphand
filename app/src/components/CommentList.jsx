@@ -5,7 +5,7 @@ function CommentList({ comments }) {
       <div className="flex justify-center items-center text-white text-lg font-mono">
         <ul>
           {comments.map((comment) => (
-            <li key={comment.id}>{comment.description}</li>
+            <li key={comment.id}>{comment.username} {comment.description}</li>
           ))}
         </ul>
       </div>
