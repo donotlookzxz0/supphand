@@ -1,6 +1,6 @@
 import { register } from "../services/auth.js";
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -56,6 +56,13 @@ function Register() {
         <button className="w-full px-10 my-5 py-2 rounded-md bg-black text-white cursor-pointer hover:bg-gray-900">
           Create Account
         </button>
+        <div className="text-center">
+          <p>Already have an account? 
+            <Link to="/login" className="active underline text-blue-500">
+              Sign in here
+            </Link>
+          </p>
+        </div>
       </form>
     </div>
   );

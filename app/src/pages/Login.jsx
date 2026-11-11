@@ -1,6 +1,6 @@
 import { login } from "../services/auth.js";
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -48,7 +48,15 @@ function Login() {
         <button className="w-full px-10 my-5 py-2 rounded-md bg-black text-white cursor-pointer hover:bg-gray-900">
           Log In
         </button>
+        <div className="text-center">
+          <p>Don't have an account yet? 
+            <Link to="/register" className="text-blue-500 font-semibold active underline">
+              Register here
+            </Link>
+          </p>
+        </div>
       </form>
+        
     </div>
   );
 }
