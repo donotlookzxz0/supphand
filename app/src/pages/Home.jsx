@@ -52,13 +52,15 @@ const Home = () => {
         </button>
       </div>
 
-      <div>
+      <div className="flex justify-center items-center">
         {roleCheck ? (
           <StaffTicketList />
         ) : (
           <>
+          <div className="flex flex-col">
             <CreateTicket onCreateTicket={createTicket} />
             <TicketList tickets={tickets} />
+          </div>
           </>
         )}
       </div>

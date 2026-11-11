@@ -12,30 +12,36 @@ function TicketList({ tickets }) {
 
   return (
     <div>
-      <table className="bg-white">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tickets.map((ticket) => (
-            <tr
-              className="cursor-pointer"
-              key={ticket.id}
-              onClick={() => navigate(`tickets/${ticket.id}`)}
-            >
-              <td>{ticket.id}</td>
-              <td>{ticket.title}</td>
-              <td>{ticket.description}</td>
-              <td className={statusColors[ticket.status]}>{ticket.status}</td>
+      {tickets.length > 0 ? (
+        <table className="bg-white rounded-md table-fixed w-svh text-left">
+          <thead className="border-b rounded-base border-default">
+            <tr>
+              <th className="px-6 py-3">ID</th>
+              <th className="px-6 py-3">Title</th>
+              <th className="px-6 py-3">Description</th>
+              <th className="px-6 py-3">Status</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {tickets.map((ticket) => (
+              <tr
+                className="border-b rounded-base border-default cursor-pointer"
+                key={ticket.id}
+                onClick={() => navigate(`tickets/${ticket.id}`)}
+              >
+                <td className="px-6 py-3">{ticket.id}</td>
+                <td className="px-6 py-3 max-w-2xs truncate">{ticket.title}</td>
+                <td className="px-6 py-3 max-w-2xs truncate">{ticket.description}</td>
+                <td className={`${statusColors[ticket.status]} font-semibold px-6 py-3`}>{ticket.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p className="text-white font-semibold text-xs md:text-xl lg:text-3xl">
+          No tickets yet
+        </p>
+      )}
     </div>
   );
 }
