@@ -15,7 +15,7 @@ function ResolveBtn({ ticketId, onUpdate }) {
   return (
     <div>
       <button 
-      className='bg-green-500 text-white cursor-pointer'
+      className='bg-green-500 text-white hover:bg-green-600 cursor-pointer rounded-md px-3 py-1'
       onClick={handleResolve}
       >
         Resolve
