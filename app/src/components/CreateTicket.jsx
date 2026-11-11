@@ -30,10 +30,10 @@ function CreateTicket({ onCreateTicket }) {
   return (
     <div>
       <button
-        className="bg-red-300 text-white text-lg font-semibold cursor-pointer"
+        className="bg-orange-400 hover:bg-orange-500 rounded-md px-3 py-1 text-white text-lg font-semibold cursor-pointer"
         onClick={toggleModal}
       >
-        Create ticket
+      Create ticket +
       </button>
       {modal && (
         <div
