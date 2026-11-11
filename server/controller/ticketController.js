@@ -33,8 +33,7 @@ const getTicketById = async (req, res) => {
 };
 
 const createTicket = async (req, res) => {
-    const userId = req.user.id;
-
+    const { id: userId, username } = req.user;
     const {title, description} = req.body;
     
     if (!title || !description) {
@@ -42,8 +41,8 @@ const createTicket = async (req, res) => {
     }
 
     const postTicket = await pool.query(
-        "INSERT INTO tickets (title, description, user_id) VALUES ($1, $2, $3) RETURNING *",
-        [title, description, userId]
+        "INSERT INTO tickets (title, description, user_id, username) VALUES ($1, $2, $3, $4) RETURNING *",
+        [title, description, userId, username]
     );
 
     if (!postTicket) {

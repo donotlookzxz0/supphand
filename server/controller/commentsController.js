@@ -34,7 +34,7 @@ const getCommentById = async (req,res) => {
 }
 
 const createComment = async (req, res) => {
-    const userId = req.user.id;
+    const { id: userId, username } = req.user;
     const ticketId = Number(req.params.ticketId);
     
     const { description } = req.body;
@@ -43,7 +43,7 @@ const createComment = async (req, res) => {
         return res.status(401).json({message:'Description field is required'});
     }
 
-    const postComment = await pool.query("INSERT INTO comments (description, ticket_id, user_id) values ($1, $2, $3) returning *", [description, ticketId, userId]);
+    const postComment = await pool.query("INSERT INTO comments (description, ticket_id, user_id, username) values ($1, $2, $3, $4) returning *", [description, ticketId, userId, username]);
     
     if (!postComment) {
         return res.status(400).json({message:'Error creating comment'});
