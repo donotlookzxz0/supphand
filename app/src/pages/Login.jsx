@@ -49,7 +49,7 @@ function Login() {
           Log In
         </button>
         <div className="text-center">
-          <p>Don't have an account yet? <Link to="/register" className="text-blue-500 font-semibold active underline">Register here</Link>
+          <p>Don't have an account yet? <Link to="/register" className="text-blue-500 active underline">Register here</Link>
           </p>
         </div>
       </form>
