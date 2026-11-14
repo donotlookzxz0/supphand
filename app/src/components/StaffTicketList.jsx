@@ -28,34 +28,37 @@ function StaffTicketList() {
   return (
     <div>
       {tickets.length > 0 ? (
-        <table className="bg-white rounded-md table-fixed w-svh text-left">
-          <thead className="border-b rounded-base border-default">
+        <table className="bg-white rounded-md table-fixed w-full text-left">
+          <thead className="border-b border-gray-200 rounded-base border-default">
             <tr>
               <th className="px-6 py-3">Username</th>
               <th className="px-6 py-3">Title</th>
               <th className="px-6 py-3">Description</th>
               <th className="px-6 py-3">Status</th>
+              <th className="py-3">Actions</th>
             </tr>
           </thead>
           <tbody>
             {tickets.map((ticket) => (
               <tr
-                className="border-b rounded-base border-default cursor-pointer"
+                className="border-b border-gray-100 hover:outline-1 hover:rounded hover:outline-gray-300 cursor-pointer"
                 key={ticket.id}
                 onClick={() => navigate(`tickets/${ticket.id}`)}
               >
-                <td className="px-6 py-3">{ticket.username}</td>
+                <td className="px-6 py-3 rounded-lg">{ticket.username}</td>
                 <td className="px-6 py-3 max-w-2xs truncate">{ticket.title}</td>
                 <td className="px-6 py-3 max-w-2xs truncate">{ticket.description}</td>
                 <td className={`${statusColors[ticket.status]} font-semibold px-6 py-3`}>{ticket.status}</td>
-                <td> <AcceptBtn ticketId={ticket.id} onUpdate={updateTicket} /></td>
-                <td> <ResolveBtn ticketId={ticket.id} onUpdate={updateTicket} /></td>
+                <td className="py-3 flex gap-2 rounded-lg"> 
+                  <AcceptBtn ticketId={ticket.id} onUpdate={updateTicket} />
+                  <ResolveBtn ticketId={ticket.id} onUpdate={updateTicket} />
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       ) : (
-        <p className="text-white font-semibold text-xs md:text-xl lg:text-3xl">
+        <p className="text-black font-semibold text-xs md:text-xl lg:text-3xl">
           No tickets yet
         </p>
       )}

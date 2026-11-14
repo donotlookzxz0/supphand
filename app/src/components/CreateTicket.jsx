@@ -37,17 +37,20 @@ function CreateTicket({ onCreateTicket }) {
       </button>
       {modal && (
         <div
-          className="text-lg font-sembiold font-mono bg-black/50 fixed min-h-screen z-10 w-screen flex justify-center items-center top-0 left-0"
+          className="bg-black/50 fixed min-h-screen z-10 w-screen flex justify-center items-center top-0 left-0"
           onClick={toggleModal}
         >
           <form
-            className="rounded-md bg-white relative text-lg font-mono p-5 flex flex-col gap-3"
             onSubmit={handleSubmit}
             onClick={(e) => e.stopPropagation()}
           >
-            <button type="button" className="border cursor-pointer" onClick={toggleModal}>
-              Close
-            </button>
+          <div className="flex flex-col gap-3 justify-center rounded-md bg-white relative text-lg p-5 w-xs md:w-lg">
+            <div className="flex flex-row justify-between">
+              <p className="font-semibold text-md">What's the concern about?</p>
+              <button type="button" className="border rounded-md bg-red-500 hover:bg-red-600 cursor-pointer px-1 md:px-3 py-1 text-white" onClick={toggleModal}>
+                Close
+              </button>
+            </div>
             <label>Title</label>
             <input
               type="text"
@@ -60,9 +63,13 @@ function CreateTicket({ onCreateTicket }) {
             />
             <label>Add description</label>
             <textarea
-            type="text"
+              type="text"
               id="description"
               name="description"
+              rows={5}
+              cols={20}
+              minLength={1}
+              maxLength={255}
               className="border rounded-md"
               required
               value={description}
@@ -70,11 +77,12 @@ function CreateTicket({ onCreateTicket }) {
             />
             <button 
               type="submit" 
-              className="bg-black text-white cursor-pointer disabled:bg-gray-300"
+              className="border rounded-md bg-orange-400 hover:bg-orange-500 cursor-pointer text-white px-2 py-1 disabled:bg-gray-500"
               disabled={loading}
             >
              { loading ? "Creating..." : "Create ticket"}
             </button>
+          </div>
           </form>
         </div>
       )}

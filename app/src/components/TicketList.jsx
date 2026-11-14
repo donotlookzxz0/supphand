@@ -13,8 +13,8 @@ function TicketList({ tickets }) {
   return (
     <div>
       {tickets.length > 0 ? (
-        <table className="bg-white rounded-md table-fixed w-svh text-left">
-          <thead className="border-b rounded-base border-default">
+        <table className="bg-white rounded-md table-fixed w-full text-left">
+          <thead className="border-b border-gray-200 rounded-base border-default">
             <tr>
               <th className="px-6 py-3">ID</th>
               <th className="px-6 py-3">Title</th>
@@ -25,7 +25,7 @@ function TicketList({ tickets }) {
           <tbody>
             {tickets.map((ticket) => (
               <tr
-                className="border-b rounded-base border-default cursor-pointer"
+                className="border-b border-gray-100 hover:outline-1 hover:rounded hover:outline-gray-300 cursor-pointer"
                 key={ticket.id}
                 onClick={() => navigate(`tickets/${ticket.id}`)}
               >
@@ -38,7 +38,7 @@ function TicketList({ tickets }) {
           </tbody>
         </table>
       ) : (
-        <p className="text-white font-semibold text-xs md:text-xl lg:text-3xl">
+        <p className="text-black font-semibold text-xs md:text-xl lg:text-3xl">
           No tickets yet
         </p>
       )}

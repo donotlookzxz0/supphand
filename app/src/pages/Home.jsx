@@ -5,9 +5,11 @@ import { getAllTickets } from "../services/ticket";
 import TicketList from "../components/TicketList";
 import StaffTicketList from "../components/StaffTicketList";
 import CreateTicket from "../components/CreateTicket";
+import Sidebar from "../components/Sidebar";
 
 const Home = () => {
   const [role, setRole] = useState(null);
+  const [username, setUsername] = useState(null);
   const [tickets, setTickets] = useState([]);
   const navigate = useNavigate();
 
@@ -15,7 +17,10 @@ const Home = () => {
 
   useEffect (() => {
     fetchUser()
-    .then((data) => setRole(data.role))
+    .then((data) => {
+      setRole(data.role);
+      setUsername(data.username);
+    })
     .catch((err) => console.error(err))
   }, [])
 
@@ -42,29 +47,27 @@ const Home = () => {
 
   return (
     <>
-      <div>
-        Home
-        <button
-          onClick={handleLogout}
-          className="bg-yellow-500 text-white font-semibol cursor-pointer"
-        >
-          Logout
-        </button>
-      </div>
+      <div className="flex">
+        
+        <Sidebar 
+          userLogout={handleLogout} 
+          showUsername={username}
+         />
 
-      <div className="flex justify-center items-center">
-        {roleCheck ? (
-          <StaffTicketList />
-        ) : (
-          <>
-          <div className="flex flex-col">
-            <CreateTicket onCreateTicket={createTicket} />
-            <TicketList tickets={tickets} />
-          </div>
-          </>
-        )}
+        <div className="flex flex-1 justify-center items-center p-5">
+          {roleCheck ? (
+            <StaffTicketList />
+          ) : (
+            <div className="flex flex-col gap-3">
+              <CreateTicket onCreateTicket={createTicket} />
+              <TicketList tickets={tickets} />
+            </div>
+          )}
+       
+        </div>
+
       </div>
-    </>
+  </>
   );
 };
 

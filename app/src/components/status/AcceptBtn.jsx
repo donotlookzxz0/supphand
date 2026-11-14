@@ -15,7 +15,7 @@ function AcceptBtn({ ticketId, onUpdate }) {
   return (
     <div>
       <button 
-      className='bg-red-500 text-white hover:bg-red-600 cursor-pointer rounded-md px-3 py-1'
+      className='bg-orange-400 text-white hover:bg-orange-500 cursor-pointer rounded-md px-3 py-1'
       onClick={handleAccept}
       >
         Accept
