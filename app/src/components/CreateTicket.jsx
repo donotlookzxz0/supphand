@@ -56,7 +56,7 @@ function CreateTicket({ onCreateTicket }) {
               type="text"
               id="title"
               name="title"
-              className="border rounded-md"
+              className="border rounded-md p-2"
               required
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -70,7 +70,7 @@ function CreateTicket({ onCreateTicket }) {
               cols={20}
               minLength={1}
               maxLength={255}
-              className="border rounded-md"
+              className="border rounded-md p-2"
               required
               value={description}
               onChange={(e) => setDescription(e.target.value)}
