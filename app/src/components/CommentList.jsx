@@ -2,11 +2,18 @@ function CommentList({ comments }) {
   
   return (
     <>
-      <div className="flex justify-center items-center text-white text-lg font-mono">
+      <div>
         <ul>
-          {comments.map((comment) => (
-            <li key={comment.id}>{comment.username} {comment.description}</li>
-          ))}
+          {comments.length > 0 ? comments.map((comment) => (
+            <li className="whitespace-pre-wrap" key={comment.id}>
+              <p className="text-xl font-semibold">{comment.username}</p> 
+              <p className="text-lg border-2 border-gray-200 rounded-md p-5">{comment.description}</p>
+            </li>
+          )) : 
+        <p className="text-black font-semibold text-xs md:text-xl lg:text-xl">
+          No comments yet
+        </p> 
+        }
         </ul>
       </div>
     </>
