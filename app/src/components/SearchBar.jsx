@@ -1,15 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function SearchBar({ onSearch }) {
   const [input, setInput] = useState("");
+  const onSearchRef = useRef(onSearch);
+
+  useEffect(() => {
+    onSearchRef.current = onSearch;
+  }, [onSearch]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      onSearch(input.trim());
+      onSearchRef.current(input.trim());
     }, 400);
 
     return () => clearTimeout(timer);
-  }, [input, onSearch]);
+  }, [input]);
 
   return (
     <input

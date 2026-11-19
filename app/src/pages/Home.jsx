@@ -31,14 +31,21 @@ const Home = () => {
 
   const handlePageChange = (newPage) => {
     if (newPage < 1 || (newPage > page && !hasNext)) return;
-    setSearchParams({ page: newPage });
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("page", newPage);
+      return next;
+    });
   };
 
   const handleSearch = (value) => {
+    if (value === search) return;
     setSearch(value);
-    if (page !== 1) {
-      setSearchParams({ page: 1 });
-    }
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("page", 1);
+      return next;
+    });
   };
 
   const createTicket = (newTicket) => {
