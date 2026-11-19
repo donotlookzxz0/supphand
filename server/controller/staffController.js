@@ -5,8 +5,9 @@ const LIMIT = 10;
 const getAllUserTickets = async (req, res) => {
     const page = Math.max(parseInt(req.query.page) || 1, 1);
     const offset = (page - 1) * LIMIT;
+    const search = req.query.search?.trim().slice(0, 100) || '';
 
-    const listAllTickets = await pool.query("SELECT * FROM tickets ORDER BY id DESC LIMIT $1 OFFSET $2",[LIMIT + 1, offset]);
+    const listAllTickets = await pool.query( "SELECT * FROM tickets WHERE ($3 = '' OR title ILIKE '%' || $3 || '%' OR description ILIKE '%' || $3 || '%') ORDER BY id DESC LIMIT $1 OFFSET $2",[LIMIT + 1, offset, search]);
 
     if (listAllTickets.rows.length === 0) {
         return res.status(200).json([]);

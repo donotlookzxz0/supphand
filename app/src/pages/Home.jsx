@@ -6,11 +6,13 @@ import TicketList from "../components/TicketList";
 import StaffTicketList from "../components/StaffTicketList";
 import CreateTicket from "../components/CreateTicket";
 import Pagination from "../components/Pagination";
+import SearchBar from "../components/SearchBar";
 
 const Home = () => {
   const { user } = useOutletContext();
   const [tickets, setTickets] = useState([]);
   const [hasNext, setHasNext] = useState(false);
+  const [search, setSearch] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   
   const page = Math.max(parseInt(searchParams.get("page")) || 1, 1);
@@ -19,17 +21,24 @@ const Home = () => {
   useEffect(() => {
     const fetchTickets = roleCheck ? getAllUserTickets : getAllTickets;
 
-    fetchTickets(page)
+    fetchTickets(page, search)
       .then((data) => {
         setTickets(data.tickets);
         setHasNext(data.hasNext);
       })
       .catch((err) => console.error(err));
-  }, [page, roleCheck]);
+  }, [page, roleCheck, search]);
 
   const handlePageChange = (newPage) => {
     if (newPage < 1 || (newPage > page && !hasNext)) return;
     setSearchParams({ page: newPage });
+  };
+
+  const handleSearch = (value) => {
+    setSearch(value);
+    if (page !== 1) {
+      setSearchParams({ page: 1 });
+    }
   };
 
   const createTicket = (newTicket) => {
@@ -54,12 +63,16 @@ const Home = () => {
         <div className="flex flex-1 justify-center items-center p-5">
           {roleCheck ? (
             <div className="flex flex-col gap-3 w-full">
+              <div>
+                <SearchBar onSearch={handleSearch} />
+              </div>
               <StaffTicketList tickets={tickets} onUpdate={updateTicket} />
               <Pagination page={page} hasNext={hasNext} onPageChange={handlePageChange} />
             </div>
           ) : (
             <div className="flex flex-col gap-3">
               <CreateTicket onCreateTicket={createTicket} />
+              <SearchBar onSearch={handleSearch} />
               <TicketList tickets={tickets} />
               <Pagination page={page} hasNext={hasNext} onPageChange={handlePageChange} />
             </div>
