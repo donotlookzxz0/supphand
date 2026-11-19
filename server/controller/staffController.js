@@ -9,10 +9,6 @@ const getAllUserTickets = async (req, res) => {
 
     const listAllTickets = await pool.query( "SELECT * FROM tickets WHERE ($3 = '' OR title ILIKE '%' || $3 || '%' OR description ILIKE '%' || $3 || '%') ORDER BY id DESC LIMIT $1 OFFSET $2",[LIMIT + 1, offset, search]);
 
-    if (listAllTickets.rows.length === 0) {
-        return res.status(200).json([]);
-    }
-
     return res.status(200).json({
         tickets: listAllTickets.rows.slice(0, LIMIT),
         page,
