@@ -38,9 +38,11 @@ function TicketList({ tickets }) {
           </tbody>
         </table>
       ) : (
-        <p className="text-black font-semibold text-xs md:text-xl lg:text-3xl">
-          No tickets yet
-        </p>
+        <div className="flex justify-center items-center">
+          <p className="text-black font-semibold text-xs md:text-xl lg:text-3xl">
+            No tickets yet
+          </p>
+        </div>
       )}
     </div>
   );

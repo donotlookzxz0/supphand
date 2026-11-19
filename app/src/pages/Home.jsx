@@ -70,9 +70,11 @@ const Home = () => {
               <Pagination page={page} hasNext={hasNext} onPageChange={handlePageChange} />
             </div>
           ) : (
-            <div className="flex flex-col gap-3">
-              <CreateTicket onCreateTicket={createTicket} />
-              <SearchBar onSearch={handleSearch} />
+            <div className="flex flex-col gap-3 w-full">
+              <div className="flex gap-3">
+                <CreateTicket onCreateTicket={createTicket} />
+                <SearchBar onSearch={handleSearch} />
+              </div>
               <TicketList tickets={tickets} />
               <Pagination page={page} hasNext={hasNext} onPageChange={handlePageChange} />
             </div>
