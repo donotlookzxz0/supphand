@@ -1,22 +1,9 @@
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { getAllUserTickets } from "../services/staff";
 import AcceptBtn from "./status/AcceptBtn";
 import ResolveBtn from "./status/ResolveBtn";
 
-function StaffTicketList() {
-  const [tickets, setTickets] = useState([]);
+function StaffTicketList({ tickets, onUpdate }) {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    getAllUserTickets()
-      .then((ticketData) => setTickets(ticketData))
-      .catch((err) => console.error(err));
-  }, []);
-
-  const updateTicket = (updated) => {
-    setTickets((prev) => prev.map((t) => (t.id === updated.id ? updated : t)));
-  };
 
   const statusColors = {
     OPEN: "text-sky-500",
@@ -50,8 +37,8 @@ function StaffTicketList() {
                 <td className="px-6 py-3 max-w-2xs truncate">{ticket.description}</td>
                 <td className={`${statusColors[ticket.status]} font-semibold px-6 py-3`}>{ticket.status}</td>
                 <td className="py-3 flex gap-2 rounded-lg"> 
-                  <AcceptBtn ticketId={ticket.id} onUpdate={updateTicket} />
-                  <ResolveBtn ticketId={ticket.id} onUpdate={updateTicket} />
+                  <AcceptBtn ticketId={ticket.id} onUpdate={onUpdate} />
+                  <ResolveBtn ticketId={ticket.id} onUpdate={onUpdate} />
                 </td>
               </tr>
             ))}

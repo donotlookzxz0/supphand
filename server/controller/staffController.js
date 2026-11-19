@@ -1,14 +1,22 @@
 import pool from '../config/db.js';
 
-const getAllUserTickets = async (req, res) => {
+const LIMIT = 10;
 
-    const listAllTickets = await pool.query("SELECT * FROM tickets ORDER by id desc");
+const getAllUserTickets = async (req, res) => {
+    const page = Math.max(parseInt(req.query.page) || 1, 1);
+    const offset = (page - 1) * LIMIT;
+
+    const listAllTickets = await pool.query("SELECT * FROM tickets ORDER BY id DESC LIMIT $1 OFFSET $2",[LIMIT + 1, offset]);
 
     if (listAllTickets.rows.length === 0) {
         return res.status(200).json([]);
     }
 
-    return res.status(200).json(listAllTickets.rows);
+    return res.status(200).json({
+        tickets: listAllTickets.rows.slice(0, LIMIT),
+        page,
+        hasNext: listAllTickets.rows.length > LIMIT,
+    });
 }
 
 const getUserTicketById = async (req, res) => {

@@ -1,9 +1,9 @@
 import api from './api.js';
 
-const getAllTickets = async () => {
+const getAllTickets = async (page = 1) => {
 
     try {
-        const res = await api.get('/tickets')
+        const res = await api.get('/tickets', { params: { page } })
         return res.data
     } catch (error) {
         console.error(error)
