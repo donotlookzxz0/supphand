@@ -4,7 +4,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import ViewTicket from "./pages/ViewTicket";
 import ProtectedRoute from "./components/ProtectedRoute";
-import ProtectedSidebar from "./components/ProtectedSidebar";
+import ProtectedNavbar from "./components/ProtectedNavbar";
 import PublicRoute from "./components/PublicRoute";
 import NotFound from "./components/NotFound";
 
@@ -20,7 +20,7 @@ function App() {
         </Route>
 
         <Route element={<ProtectedRoute />}>
-          <Route element={<ProtectedSidebar />}>
+          <Route element={<ProtectedNavbar />}>
             <Route path="/" element={<Home />} />
             <Route path="/tickets/:ticketId" element={<ViewTicket />} />
           </Route>
