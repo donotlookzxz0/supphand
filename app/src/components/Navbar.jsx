@@ -39,11 +39,11 @@ function Navbar({ userLogout, showUsername }) {
         </div>
       </div>
 
-     
-
       {isOpen && (
         <div className="flex flex-col items-center gap-5 bg-white p-3 w-full">  
-          <span>Home</span>
+          <Link to="/" onClick={() => setIsOpen(false)} className="font-semibold hover:underline">
+            Home
+          </Link>
           <button
             onClick={userLogout}
             className="bg-orange-400 text-white rounded-md w-20 px-2 py-1 hover:bg-orange-500 cursor-pointer"
