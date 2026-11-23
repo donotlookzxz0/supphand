@@ -67,7 +67,7 @@ const Home = () => {
   return (
       <div className="flex">
         
-        <div className="flex flex-1 justify-center items-center p-5">
+        <div className="flex justify-center items-center p-5">
           {roleCheck ? (
             <div className="flex flex-col gap-3 w-full">
               <div>
@@ -78,10 +78,8 @@ const Home = () => {
             </div>
           ) : (
             <div className="flex flex-col gap-3 w-full">
-              <div className="flex gap-3">
-                <CreateTicket onCreateTicket={createTicket} />
-                <SearchBar onSearch={handleSearch} />
-              </div>
+              <CreateTicket onCreateTicket={createTicket} />
+              <SearchBar onSearch={handleSearch} />
               <TicketList tickets={tickets} />
               <Pagination page={page} hasNext={hasNext} onPageChange={handlePageChange} />
             </div>

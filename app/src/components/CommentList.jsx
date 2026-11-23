@@ -5,12 +5,12 @@ function CommentList({ comments }) {
       <div>
         <ul>
           {comments.length > 0 ? comments.map((comment) => (
-            <li className="whitespace-pre-wrap" key={comment.id}>
+            <li className="p-5 border-b border-gray-200 whitespace-pre-wrap" key={comment.id}>
               <p className="text-xl font-semibold">{comment.username}</p> 
-              <p className="text-lg border-2 border-gray-200 rounded-md p-5">{comment.description}</p>
+              <p className="text-lg p-5">{comment.description}</p>
             </li>
           )) : 
-        <p className="text-black font-semibold text-xs md:text-xl lg:text-xl">
+        <p className="text-black font-semibold p-3 text-xs md:text-xl lg:text-xl">
           No comments yet
         </p> 
         }

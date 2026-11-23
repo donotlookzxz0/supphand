@@ -52,7 +52,7 @@
           <p>{singleTicket.description}</p>
         </div>
 
-        <div className="bg-white p-5 border border-none rounded-md">
+        <div className="border border-none rounded-md">
           <button 
           className="border rounded-md px-2 py-1 text-white bg-orange-400 hover:bg-orange-500 cursor-pointer" 
           onClick={toggleCommentForm}
@@ -67,7 +67,7 @@
           />}
         </div>
 
-        <div className="flex flex-col gap-3 bg-white p-5 border border-none rounded-md">
+        <div className="flex flex-col gap-3 bg-white rounded-md">
           <CommentList comments={comments}/>
         </div>
 
