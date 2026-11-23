@@ -7,12 +7,14 @@ import StaffTicketList from "../components/StaffTicketList";
 import CreateTicket from "../components/CreateTicket";
 import Pagination from "../components/Pagination";
 import SearchBar from "../components/SearchBar";
+import StatusTabs from "../components/StatusTabs";
 
 const Home = () => {
   const { user } = useOutletContext();
   const [tickets, setTickets] = useState([]);
   const [hasNext, setHasNext] = useState(false);
   const [search, setSearch] = useState("");
+  const [status, setStatus] = useState("All");
   const [searchParams, setSearchParams] = useSearchParams();
   
   const page = Math.max(parseInt(searchParams.get("page")) || 1, 1);
@@ -21,13 +23,13 @@ const Home = () => {
   useEffect(() => {
     const fetchTickets = roleCheck ? getAllUserTickets : getAllTickets;
 
-    fetchTickets(page, search)
+    fetchTickets(page, search, status)
       .then((data) => {
         setTickets(data.tickets);
         setHasNext(data.hasNext);
       })
       .catch((err) => console.error(err));
-  }, [page, roleCheck, search]);
+  }, [page, roleCheck, search, status]);
 
   const handlePageChange = (newPage) => {
     if (newPage < 1 || (newPage > page && !hasNext)) return;
@@ -41,6 +43,16 @@ const Home = () => {
   const handleSearch = (value) => {
     if (value === search) return;
     setSearch(value);
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("page", 1);
+      return next;
+    });
+  };
+
+  const handleStatusChange = (value) => {
+    if (value === status) return;
+    setStatus(value);
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev);
       next.set("page", 1);
@@ -70,8 +82,9 @@ const Home = () => {
         <div className="flex justify-center items-center p-5">
           {roleCheck ? (
             <div className="flex flex-col gap-3 w-full">
-              <div>
+              <div className="flex flex-col items-start md:flex-row md:items-center gap-3">
                 <SearchBar onSearch={handleSearch} />
+                <StatusTabs status={status} onStatusChange={handleStatusChange} />
               </div>
               <StaffTicketList tickets={tickets} onUpdate={updateTicket} />
               <Pagination page={page} hasNext={hasNext} onPageChange={handlePageChange} />
@@ -79,7 +92,10 @@ const Home = () => {
           ) : (
             <div className="flex flex-col gap-3 w-full">
               <CreateTicket onCreateTicket={createTicket} />
-              <SearchBar onSearch={handleSearch} />
+              <div className="flex flex-col items-start md:flex-row md:items-center gap-3">
+                <SearchBar onSearch={handleSearch} />
+                <StatusTabs status={status} onStatusChange={handleStatusChange} />
+              </div>
               <TicketList tickets={tickets} />
               <Pagination page={page} hasNext={hasNext} onPageChange={handlePageChange} />
             </div>

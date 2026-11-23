@@ -2,12 +2,19 @@ import pool from '../config/db.js';
 
 const LIMIT = 10;
 
+const statusMap = {
+    "Open": "OPEN",
+    "Pending/Active": "PENDING",
+    "Resolved": "RESOLVED",
+};
+
 const getAllUserTickets = async (req, res) => {
     const page = Math.max(parseInt(req.query.page) || 1, 1);
     const offset = (page - 1) * LIMIT;
     const search = req.query.search?.trim().slice(0, 100) || '';
+    const status = statusMap[req.query.status] || '';
 
-    const listAllTickets = await pool.query( "SELECT * FROM tickets WHERE ($3 = '' OR title ILIKE '%' || $3 || '%' OR description ILIKE '%' || $3 || '%') ORDER BY id DESC LIMIT $1 OFFSET $2",[LIMIT + 1, offset, search]);
+    const listAllTickets = await pool.query("SELECT * FROM tickets WHERE ($3 = '' OR title ILIKE '%' || $3 || '%' OR description ILIKE '%' || $3 || '%') AND ($4 = '' OR status = $4) ORDER BY id DESC LIMIT $1 OFFSET $2",[LIMIT + 1, offset, search, status]);
 
     return res.status(200).json({
         tickets: listAllTickets.rows.slice(0, LIMIT),
