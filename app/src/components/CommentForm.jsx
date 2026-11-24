@@ -26,7 +26,7 @@ function CommentForm({ ticketId, addComment, closeCommentForm }) {
       <form onSubmit={handleCommentCreation}>
         <div className="flex flex-col gap-2">
           <textarea
-            className="border rounded-md p-2 w-1/2"
+            className="border rounded-md p-2 w-80 *:md:w-1/2 lg:w-1/2"
             type="text"
             id="description"
             name="description"

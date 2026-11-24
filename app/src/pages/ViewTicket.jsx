@@ -44,15 +44,15 @@
     }
 
     return (
-      <div className="flex flex-col w-full m-5 p-8 gap-5">
+      <div className="flex flex-col justify-center items-center w-full m-5 p-8 gap-5">
         
-        <div className="flex flex-col gap-2 p-5 bg-white border border-none rounded-md">
+        <div className="flex flex-col gap-2 p-5 bg-white rounded-md w-80 md:w-120 lg:w-150 wrap-break-word">
           <p className="text-2xl font-medium">{singleTicket.title}</p>
           <p className="text-sm text-gray-500">{singleTicket.username}</p>
           <p>{singleTicket.description}</p>
         </div>
 
-        <div className="border border-none rounded-md">
+        <div>
           <button 
           className="border rounded-md px-2 py-1 text-white bg-orange-400 hover:bg-orange-500 cursor-pointer" 
           onClick={toggleCommentForm}
