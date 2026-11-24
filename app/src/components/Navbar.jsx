@@ -13,7 +13,7 @@ function Navbar({ userLogout, showUsername }) {
 
         <div className="hidden md:flex">
           <Link to="/" className="font-semibold hover:underline">
-            Home
+            Tickets
           </Link>
         </div>
 
@@ -40,16 +40,20 @@ function Navbar({ userLogout, showUsername }) {
       </div>
 
       {isOpen && (
-        <div className="flex flex-col items-center gap-5 bg-white p-3 w-full">  
-          <Link to="/" onClick={() => setIsOpen(false)} className="font-semibold hover:underline">
-            Home
-          </Link>
-          <button
+        <div className="flex flex-col items-center gap-3 bg-white w-full"> 
+          <div className="flex justify-center items-center border-b border-t border-gray-200 underline p-3 w-full">
+            <Link to="/" onClick={() => setIsOpen(false)} className="font-semibold hover:underline">
+              Tickets
+            </Link>
+          </div>
+          <div className="flex justify-center items-center border-b p-3 border-gray-200 w-full">
+            <button
             onClick={userLogout}
             className="bg-orange-400 text-white rounded-md w-20 px-2 py-1 hover:bg-orange-500 cursor-pointer"
-          >
-            Logout
-          </button>
+            >
+              Logout
+            </button>
+          </div>
         </div>
       )}
     </>

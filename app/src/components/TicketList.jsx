@@ -12,6 +12,7 @@ function TicketList({ tickets }) {
 
   return (
     <div>
+      <div className="overflow-auto hidden md:block">
       {tickets.length > 0 ? (
         <table className="bg-white rounded-md table-fixed w-full text-left">
           <thead className="border-b border-gray-200 rounded-base border-default">
@@ -44,6 +45,35 @@ function TicketList({ tickets }) {
           </p>
         </div>
       )}
+      </div>
+
+      <div className="grid grid-cols-1 md:hidden">
+        {tickets.length > 0 ? (
+          <ul className="flex flex-col gap-2">
+            {tickets.map((ticket) => (
+              <li 
+              className="bg-white p-3 rounded-md space-y-3"
+              key={ticket.id}
+              onClick={() => navigate(`tickets/${ticket.id}`)}
+              >
+                <div className="flex items-center space-x-2 font-semibold">
+                  <div className="text-xl max-w-3xs truncate">{ticket.title}</div>
+                  <div className={`${statusColors[ticket.status]}  `}>{ticket.status}</div>
+                </div>
+                <div className="text-gray-400">{ticket.username}</div>
+                <div className="max-w-3xs truncate">{ticket.description}</div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+           <div className="flex justify-center items-center">
+          <p className="text-black font-semibold text-xs md:text-xl lg:text-3xl">
+            No tickets yet
+          </p>
+        </div>
+        )}
+      </div>
+
     </div>
   );
 }
