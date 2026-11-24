@@ -24,7 +24,7 @@ function Register() {
   return (
     <div className="flex min-h-screen justify-center items-center">
       <form
-        className="bg-white min-w-100 rounded-lg p-11"
+        className="bg-white min-w-11 md:min-w-50 lg:min-w-100 rounded-lg p-7 md:p-9 lg:p-11"
         onSubmit={handleSubmit}
       >
         <h1 className="text-xl text-center font-bold">Register new account</h1>
