@@ -43,7 +43,7 @@ app.get('/v/spb', async (req, res) => {
         res.status(200).json(result.rows)
     } catch (error) {
         console.error(error)
-        result.status(500).json({error: 'Failed query'})
+        res.status(500).json({error: 'Failed query'})
     }
 })
 
