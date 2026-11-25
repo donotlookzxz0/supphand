@@ -39,11 +39,11 @@ app.get('/healthx', (req, res) => {
 app.get('/v/spb', async (req, res) => {
     
     try {
-        const res = await pool.query("SELECT * FROM users ORDER BY id ASC LIMIT 2")
-        res.status(200).json(res.rows)
+        const result = await pool.query("SELECT * FROM users ORDER BY id ASC LIMIT 2")
+        res.status(200).json(result.rows)
     } catch (error) {
         console.error(error)
-        res.status(500).json({error: 'Failed query'})
+        result.status(500).json({error: 'Failed query'})
     }
 })
 
