@@ -38,8 +38,8 @@ function StaffTicketList({ tickets, onUpdate }) {
                 <td className="px-6 py-3 max-w-2xs truncate">{ticket.description}</td>
                 <td className={`${statusColors[ticket.status]} font-semibold px-6 py-3`}>{ticket.status}</td>
                 <td className="md:flex-col md:py-3 md:space-y-2 lg:py-3 lg:flex lg:flex-row gap-2 rounded-lg "> 
-                  <AcceptBtn ticketId={ticket.id} onUpdate={onUpdate} />
-                  <ResolveBtn ticketId={ticket.id} onUpdate={onUpdate} />
+                  <AcceptBtn ticketId={ticket.id} status={ticket.status} onUpdate={onUpdate} />
+                  <ResolveBtn ticketId={ticket.id} status={ticket.status} onUpdate={onUpdate} />
                 </td>
               </tr>
             ))}

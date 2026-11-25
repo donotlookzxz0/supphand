@@ -1,6 +1,8 @@
 import { acceptTicket } from "../../services/staff"
 
-function AcceptBtn({ ticketId, onUpdate }) {
+function AcceptBtn({ ticketId, status, onUpdate }) {
+
+  const disabled = status !== "OPEN"
 
   const handleAccept = async (e) => {
     try {
@@ -15,8 +17,9 @@ function AcceptBtn({ ticketId, onUpdate }) {
   return (
     <div>
       <button 
-      className='bg-orange-400 text-white hover:bg-orange-500 cursor-pointer rounded-md px-3 py-1'
+      className='bg-orange-400 text-white hover:bg-orange-500 cursor-pointer rounded-md px-3 py-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-orange-400'
       onClick={handleAccept}
+      disabled={disabled}
       >
         Accept
       </button>

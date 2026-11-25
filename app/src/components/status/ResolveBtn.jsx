@@ -1,6 +1,8 @@
 import { resolveTicket } from "../../services/staff"
 
-function ResolveBtn({ ticketId, onUpdate }) {
+function ResolveBtn({ ticketId, status, onUpdate }) {
+
+  const disabled = status !== "PENDING"
 
   const handleResolve = async (e) => {
     try {
@@ -15,8 +17,9 @@ function ResolveBtn({ ticketId, onUpdate }) {
   return (
     <div>
       <button 
-      className='bg-green-500 text-white hover:bg-green-600 cursor-pointer rounded-md px-3 py-1'
+      className="bg-green-500 text-white hover:bg-green-600 cursor-pointer rounded-md px-3 py-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-500"
       onClick={handleResolve}
+      disabled={disabled}
       >
         Resolve
       </button>

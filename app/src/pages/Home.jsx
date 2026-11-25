@@ -86,6 +86,7 @@ const Home = () => {
                 <SearchBar onSearch={handleSearch} />
                 <StatusTabs status={status} onStatusChange={handleStatusChange} />
               </div>
+              <Pagination page={page} hasNext={hasNext} onPageChange={handlePageChange} />
               <StaffTicketList tickets={tickets} onUpdate={updateTicket} />
               <Pagination page={page} hasNext={hasNext} onPageChange={handlePageChange} />
             </div>
@@ -96,6 +97,7 @@ const Home = () => {
                 <SearchBar onSearch={handleSearch} />
                 <StatusTabs status={status} onStatusChange={handleStatusChange} />
               </div>
+              <Pagination page={page} hasNext={hasNext} onPageChange={handlePageChange} />
               <TicketList tickets={tickets} />
               <Pagination page={page} hasNext={hasNext} onPageChange={handlePageChange} />
             </div>
