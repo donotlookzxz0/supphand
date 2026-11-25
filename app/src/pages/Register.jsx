@@ -14,7 +14,7 @@ function Register() {
     e.preventDefault();
     try {
       await register(username, email, password);
-      navigate("/auth/login");
+      navigate("/login");
     } catch (err) {
       setError(err.response.data.message)
       throw err;
