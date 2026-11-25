@@ -52,7 +52,7 @@ const register = async (req, res) => {
 
   const newUserData = newUser.rows[0];
 
-  const token = generateToken(newUser.rows[0].id);
+  const token = generateToken(newUserData);
   res.cookie("token", token, cookieOptions);
 
   return res.status(201).json({
@@ -110,13 +110,6 @@ const me = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  // res.cookie("jwt", "", {
-  //     httpOnly: true,
-  //     expires: new Date(0),
-  // });
-  // res.status(200).json({
-  //     message: 'Logged out'
-  // });
 
   res.cookie("token", "", {
     ...cookieOptions,
