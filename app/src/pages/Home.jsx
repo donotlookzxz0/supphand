@@ -8,6 +8,11 @@ import CreateTicket from "../components/CreateTicket";
 import Pagination from "../components/Pagination";
 import SearchBar from "../components/SearchBar";
 import StatusTabs from "../components/StatusTabs";
+import TableSkeleton from "../components/loader/tickets/TableSkeleton";
+import CreateTicketBtnSkeleton from "../components/loader/tickets/CreateTicketBtnSkeleton";
+import StatusTabsSkeleton from "../components/loader/tickets/StatusTabsSkeleton";
+import SearchBarSkeleton from "../components/loader/tickets/SearchBarSkeleton";
+import PaginationSkeleton from "../components/loader/tickets/PaginationSkeleton";
 
 const Home = () => {
   const { user } = useOutletContext();
@@ -15,6 +20,7 @@ const Home = () => {
   const [hasNext, setHasNext] = useState(false);
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("All");
+  const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   
   const page = Math.max(parseInt(searchParams.get("page")) || 1, 1);
@@ -28,7 +34,8 @@ const Home = () => {
         setTickets(data.tickets);
         setHasNext(data.hasNext);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
   }, [page, roleCheck, search, status]);
 
   const handlePageChange = (newPage) => {
@@ -83,23 +90,23 @@ const Home = () => {
           {roleCheck ? (
             <div className="flex flex-col gap-3 w-full">
               <div className="flex flex-col items-start md:flex-row md:items-center gap-3">
-                <SearchBar onSearch={handleSearch} />
-                <StatusTabs status={status} onStatusChange={handleStatusChange} />
+                {loading ? <SearchBarSkeleton /> : <SearchBar onSearch={handleSearch} />}
+                {loading ? <StatusTabsSkeleton /> : <StatusTabs status={status} onStatusChange={handleStatusChange} />}
               </div>
-              <Pagination page={page} hasNext={hasNext} onPageChange={handlePageChange} />
-              <StaffTicketList tickets={tickets} onUpdate={updateTicket} />
-              <Pagination page={page} hasNext={hasNext} onPageChange={handlePageChange} />
+              {loading ? <PaginationSkeleton /> : <Pagination page={page} hasNext={hasNext} onPageChange={handlePageChange} />}
+              {loading ? <TableSkeleton columns={5} rows={5} /> : <StaffTicketList tickets={tickets} onUpdate={updateTicket} />}
+              {loading ? <PaginationSkeleton /> : <Pagination page={page} hasNext={hasNext} onPageChange={handlePageChange} />}
             </div>
           ) : (
             <div className="flex flex-col gap-3 w-full">
-              <CreateTicket onCreateTicket={createTicket} />
+             {loading ? <CreateTicketBtnSkeleton /> : <CreateTicket onCreateTicket={createTicket} />}
               <div className="flex flex-col items-start md:flex-row md:items-center gap-3">
-                <SearchBar onSearch={handleSearch} />
-                <StatusTabs status={status} onStatusChange={handleStatusChange} />
+                {loading ? <SearchBarSkeleton /> : <SearchBar onSearch={handleSearch} />}
+                {loading ? <StatusTabsSkeleton /> : <StatusTabs status={status} onStatusChange={handleStatusChange} />}
               </div>
-              <Pagination page={page} hasNext={hasNext} onPageChange={handlePageChange} />
-              <TicketList tickets={tickets} />
-              <Pagination page={page} hasNext={hasNext} onPageChange={handlePageChange} />
+              {loading ? <PaginationSkeleton /> : <Pagination page={page} hasNext={hasNext} onPageChange={handlePageChange} />}
+              {loading ? <TableSkeleton columns={4} rows={5} /> : <TicketList tickets={tickets} />}
+              {loading ? <PaginationSkeleton /> : <Pagination page={page} hasNext={hasNext} onPageChange={handlePageChange} />}
             </div>
           )}
         </div>
